@@ -13,15 +13,38 @@ class ActorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
+    public function index($page = 1)
+    {
+
         $popularActors = Http::withToken(config('services.tmdb.token'))
-                        ->get('https://api.themoviedb.org/3/person/popular')
+                        ->get('https://api.themoviedb.org/3/person/popular?page='.$page)
                         ->json()['results'];
 
-        dd($popularActors);
+        // dd($popularActors);
 
-        return view('actors.index');
+        $popularActors = collect($popularActors)->map(function ($actor){
+          return collect($actor)->merge([
+            'profile_path' => $actor['profile_path']
+            ? 'https://image.tmdb.org/t/p/w235_and_h235_face'.$actor['profile_path']
+            : 'https://ui-avatars.com/api/?size=235&name='.$actor['name'],
+            'known_for' => collect($actor['known_for'])->where('media_type','tv')->pluck('name')
+            ->union(collect($actor['known_for'])->where('media_type','movie')->pluck('title'))->implode(', '),
+          ]);
+        })->dump();
+
+        function next($page){
+          return ($page < 500)? $page + 1: null;
+        }
+
+        function previous($page){
+          return ($page > 1)? $page - 1: null;
+        }
+
+        return view('actors.index',[
+          'popularActors' => $popularActors,
+          'next' => next($page),
+          'previous' => previous($page)
+        ]);
     }
 
     /**
