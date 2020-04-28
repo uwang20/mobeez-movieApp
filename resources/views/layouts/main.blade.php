@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <livewire:styles>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <title>Movie App</title>
   </head>
   <body class="font-sans custom-gray-2 text-white">
@@ -40,5 +41,6 @@
 
       @yield('content')
       <livewire:scripts>
+      @yield('script')
   </body>
 </html>
