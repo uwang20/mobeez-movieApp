@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="now-playing-movies mb-24">
-            <h2 class="uppercase tracking-wider text-yellow-400 text-lg font-semibold mb-4">Now Playing Movies</h2>
+            <h2 class="uppercase tracking-wider text-yellow-400 text-lg font-semibold mb-4">Now Playing</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 scroll-600 border-rounded-10-corner-ltb px-4 py-4 custom-gray-3 shadow-2xl">
                 @foreach ($popularMovies as $movie)
                     <x-movie-card :movie="$movie"/>
