@@ -30,7 +30,7 @@ class ActorsController extends Controller
             'known_for' => collect($actor['known_for'])->where('media_type','tv')->pluck('name')
             ->union(collect($actor['known_for'])->where('media_type','movie')->pluck('title'))->implode(', '),
           ]);
-        });
+        })->dump();
 
         function next($page){
           return ($page < 500)? $page + 1: null;
