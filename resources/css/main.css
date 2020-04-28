@@ -1,0 +1,85 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.custom-black-1{
+  background-color: #202124;
+}
+
+
+.custom-gray-1{
+  background-color: #3C4043;
+}
+
+
+.custom-gray-2{
+  background-color: #333333;
+}
+
+.custom-border-b-gray-2{
+  border-bottom: 2px solid #333333;
+}
+
+.custom-border-b-gray-2:hover{
+  background-color: #555555;
+}
+
+.custom-gray-3{
+  background-color: #444444;
+}
+
+.custom-gray-3-border-bottom{
+  border-bottom:2px solid #444444;
+}
+
+.font-blue-1{
+  color:#23A8F2;
+}
+
+.custom-gray-4{
+  background-color: #555555;
+}
+
+.custom-gray-4{
+  background-color: #555555;
+}
+
+.spinner{
+    position: absolute;
+}
+
+.scroll-300{
+    height: 350px;
+    overflow-y: scroll;
+}
+
+.scroll-600{
+    height: 650px;
+    overflow-y: scroll;
+    border-radius: 5px 0 0 5px;
+}
+
+.width-poster{
+  width: 20rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #222222;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #777777;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
