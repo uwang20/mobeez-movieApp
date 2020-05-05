@@ -2,7 +2,8 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        '96':'24rem'
+        '96':'24rem',
+        '72':'18rem'
       }
     },
     spinner: (theme) => ({

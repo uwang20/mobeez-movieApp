@@ -4,8 +4,18 @@
 
 @tailwind utilities;
 
+
+.poster-size{
+  max-width: 220px;
+  max-height: 330px;
+}
+
 .custom-black-1{
   background-color: #202124;
+}
+
+.rem-18{
+  width: 22rem;
 }
 
 
@@ -13,9 +23,50 @@
   background-color: #3C4043;
 }
 
+.custom-gray-0{
+  background-color: #222222;
+}
 
 .custom-gray-2{
   background-color: #333333;
+}
+
+.border-custom-gray-2{
+  border: 2px solid #777777;
+}
+
+.text-custom-gray-2{
+  color: #E1DEE7;
+}
+
+.text-custom-gray-3{
+  color: rgba(255,255,255,0.5);
+}
+
+.border-r-custom-gray-2{
+  border-right: 2px solid #777777;
+}
+
+.center-pos{
+  top: 50%;
+  left: 50%;
+  transform: translate(-58%, -40%);
+}
+
+.all-box-shadow{
+  -webkit-box-shadow: 0px 0px 23px -12px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 0px 23px -12px rgba(0,0,0,1);
+  box-shadow: 0px 0px 23px -12px rgba(0,0,0,1);
+}
+
+.all-box-shadow-white{
+  -webkit-box-shadow: 0px 0px 23px -12px rgba(255,255,255,1);
+  -moz-box-shadow: 0px 0px 23px -12px rgba(255,255,255,1);
+  box-shadow: 0px 0px 23px -12px rgba(255,255,255,1);
+}
+
+.all-border{
+  border: 1px solid #1E2118;
 }
 
 .custom-border-b-gray-2{
@@ -34,8 +85,20 @@
   border-bottom:2px solid #444444;
 }
 
+.hover-gray{
+  background-color: #FFFFFF;
+}
+
+.hover-gray:hover{
+  background-color: rgba(0,0,0,0.4);
+}
+
 .font-blue-1{
   color:#23A8F2;
+}
+
+.border-btm-black03{
+  border-bottom: 2px solid rgba(0,0,0,0.3);
 }
 
 .custom-gray-4{
@@ -57,6 +120,12 @@
 
 .scroll-600{
     height: 650px;
+    overflow-y: scroll;
+    border-radius: 5px 0 0 5px;
+}
+
+.scroll-400{
+    height: 400px;
     overflow-y: scroll;
     border-radius: 5px 0 0 5px;
 }

@@ -4,15 +4,17 @@
     <div class="container mx-auto px-4 pt-16">
         <div class="popular-actors mb-24">
             <h2 class="uppercase tracking-wider text-yellow-400 text-lg font-semibold mb-4">Popular Actors</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 border-rounded-10-corner-ltb py-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 border-rounded-10-corner-ltb py-2 bg-white px-2">
               @foreach($popularActors as $actor)
-                <div class="actor mt-8">
-                    <a href="{{route('actors.show',$actor['id'])}}">
-                        <img src="{{$actor['profile_path']}}" alt="sample" class="hover:opacity-75">
+                <div class="actor mt-8 custom-gray-2 all-box-shadow">
+                    <a href="{{route('actors.show', $actor['id'])}}">
+                        <img src="{{$actor['profile_path']}}" alt="sample" class="hover:opacity-75 w-full">
                     </a>
-                    <a href="{{route('actors.show',$actor['id'])}}" class="mt-2">{{$actor['name']}}</a>
-                    <div class="text-sm truncate text-gray-400">
-                        {{$actor['known_for']}}
+                    <div class="p-3 md:p-1">
+                      <a href="{{route('actors.show', $actor['id'])}}" class="mt-2">{{$actor['name']}}</a>
+                      <div class="text-sm truncate text-gray-400">
+                          {{$actor['known_for']}}
+                      </div>
                     </div>
                 </div>
               @endforeach

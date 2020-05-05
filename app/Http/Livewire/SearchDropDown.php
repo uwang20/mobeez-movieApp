@@ -10,7 +10,7 @@ class SearchDropDown extends Component
     public $search = '';
 
     public function render()
-    {       
+    {
         $searchResults = [];
 
         if(strlen($this->search) >= 2){
@@ -19,7 +19,7 @@ class SearchDropDown extends Component
                             ->json()['results'];
         }
 
-        // dd(count($searchResults));
+        // dd($searchResults);
 
         return view('livewire.search-drop-down',[
             'searchResults' => $searchResults

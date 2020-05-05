@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
+
+use League\ColorExtractor\Color;
+use League\ColorExtractor\ColorExtractor;
+use League\ColorExtractor\Palette;
+
 class MoviesController extends Controller
 {
     /**
@@ -23,6 +28,15 @@ class MoviesController extends Controller
                         ->get('https://api.themoviedb.org/3/movie/now_playing')
                         ->json()['results'];
 
+        $upcomingMovies = Http::withToken(config('services.tmdb.token'))
+                        ->get('https://api.themoviedb.org/3/movie/upcoming'.'?region=US')
+                        ->json()['results'];
+
+        $topRatedMovies = Http::withToken(config('services.tmdb.token'))
+                        ->get('https://api.themoviedb.org/3/movie/top_rated')
+                        ->json()['results'];
+
+
         function genres(){
           $allMovieGenres = Http::withToken(config('services.tmdb.token'))
                         ->get('https://api.themoviedb.org/3/genre/movie/list')
@@ -39,7 +53,7 @@ class MoviesController extends Controller
                 return [$value => genres()->get($value)];
               })->implode(', ');
             return collect($movie)->merge([
-              'poster_path' => 'https://image.tmdb.org/t/p/w500'.$movie['poster_path'],
+              'poster_path' => $movie['poster_path']? 'https://image.tmdb.org/t/p/w220_and_h330_face'.$movie['poster_path']:'https://via.placeholder.com/220x330/F1C40F/000000?text='.$movie['title'],
               'vote_average' => $movie['vote_average'] * 10 .'%',
               'release_date' => Carbon::parse($movie['release_date'])->format('M d, Y'),
               'genres' => $movieGenres
@@ -47,9 +61,13 @@ class MoviesController extends Controller
         });
         }
 
+        // dump($upcomingMovies);
+
         return view('movies.index',[
             'popularMovies' => setMovies($popularMovies),
-            'nowPlayingMovies' => setMovies($nowPlayingMovies)
+            'nowPlayingMovies' => setMovies($nowPlayingMovies),
+            'upcomingMovies' => setMovies($upcomingMovies),
+            'topRatedMovies' => setMovies($topRatedMovies)
         ]);
     }
 
@@ -86,6 +104,8 @@ class MoviesController extends Controller
                         ->get('https://api.themoviedb.org/3/movie/'.$id.'?append_to_response=credits,videos,images')
                         ->json();
 
+                        // dd($movie);
+
         $hour = floor($movie['runtime'] / 60);
         $min = $movie['runtime'] - 60*$hour;
 
@@ -105,14 +125,30 @@ class MoviesController extends Controller
             'crew' => collect($movie['credits']['crew'])->take(3),
             'full-crew' => collect($movie['credits']['crew']),
             'poster-images' => collect($movie['images']['backdrops'])->take(9),
-            'trailer' => collect($movie['videos']['results'][0]['key']),
+            'trailer' => $movie['videos']['results'][0]['key'],
             'trailer-list' => collect($movie['videos']['results'])
           ]);
 
-          // dd($movie);
+          $palette = Palette::fromFilename($movie['backdrop_path']);
+
+          $topFive = $palette->getMostUsedColors(5);
+          $extractor = new ColorExtractor($palette);
+          $color = $extractor->extract(1);
+          $mainColor = Color::fromIntToRgb($color[0]);
+
+          $mainRgbOrig = 'rgb('.$mainColor['r'].','.$mainColor['g'].','.$mainColor['b'].')';
+          $black = 'rgb(0,0,0)';
+          $black09 = 'rgba(0,0,0,0.9)';
+          $black07 = 'rgba(0,0,0,0.7)';
+          $black05 = 'rgba(0,0,0,0.5)';
+
+          $mainRgb = collect([$mainRgbOrig,$black,$black09,$black07,$black05]);
+
+          dump($movie);
 
         return view('movies.show',[
-            'movie' => $movie
+            'movie' => $movie,
+            'color' => $mainRgb
         ]);
     }
 
